@@ -15,36 +15,42 @@ const priceMessage = 'Totale biglietto';
 //Main Logics
 
 // 1- Il prezzo del biglietto definito in base ai km
-const age = prompt('La tua età' , 35);
-const kms = prompt('Km percorsi' , 100);
+const age = parseInt(prompt('La tua età' , 35).trim());
+const kms = parseInt(prompt('Km percorsi' , 100).trim());
 
+// Problemi
+if (isNaN (kms) || isNaN(age) || kms <= 0 || age <= 0) {
+    document.getElementById('alert').innerText = 'Caratteri non validi';
+} else {
 
-// Calcolo del prezzo
-const basePrice = kms * 0.21;
-let finalPrice = basePrice;
-
-
-// ! Flag
-let discount = null;
-
-// Verificare i vari sconti
-if(age >= 65){
-    finalPrice *= 0.6;
-    discount = "40%";
     
-} else if(age < 18) {
-    finalPrice *= 0.8;
-    discount = "20%";
+    // Calcolo del prezzo
+    const basePrice = kms * 0.21;
+    let finalPrice = basePrice;
+    
+    
+    // ! Flag
+    let discount = null;
+    
+    // Verificare i vari sconti
+    if(age >= 65){
+        finalPrice *= 0.6;
+        discount = "40%";
+        
+    } else if(age < 18) {
+        finalPrice *= 0.8;
+        discount = "20%";
+    }
+    
+    if (discount) {
+        const originalPriceElement = document.getElementById('original-price');
+        const discountMessageElement = document.getElementById('discount-message')
+        
+        let discountMessage = 'Sconto ' + discount;
+        discountMessageElement.innerText = discountMessage;
+        originalPriceElement.innerText = basePrice.toFixed(2) + '€';
+    }
+    
+    targetElement.innerText = priceMessage + '€' + finalPrice.toFixed(2);
 }
-
-if (discount) {
-    const originalPriceElement = document.getElementById('original-price');
-    const discountMessageElement = document.getElementById('discount-message')
-
-    let discountMessage = 'Sconto ' + discount;
-    discountMessageElement.innerText = discountMessage;
-    originalPriceElement.innerText = basePrice.toFixed(2) + '€';
-}
-
-targetElement.innerText = priceMessage + '€' + finalPrice.toFixed(2);
 
