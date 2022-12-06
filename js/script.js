@@ -20,26 +20,31 @@ const kms = prompt('Km percorsi' , 100);
 
 
 // Calcolo del prezzo
-let price = kms * 0.21;
+const basePrice = kms * 0.21;
+let finalPrice = basePrice;
+
 
 // ! Flag
 let discount = null;
 
 // Verificare i vari sconti
 if(age >= 65){
-    price = price * 0.6;
+    finalPrice *= 0.6;
     discount = "40%";
     
 } else if(age < 18) {
-    price = price * 0.8;
+    finalPrice *= 0.8;
     discount = "20%";
 }
 
 if (discount) {
-    let discountMessage = 'Sconto ' + discount;
+    const originalPriceElement = document.getElementById('original-price');
     const discountMessageElement = document.getElementById('discount-message')
+
+    let discountMessage = 'Sconto ' + discount;
     discountMessageElement.innerText = discountMessage;
+    originalPriceElement.innerText = basePrice.toFixed(2) + '€';
 }
 
-targetElement.innerText = priceMessage + '€' + price.toFixed(2);
+targetElement.innerText = priceMessage + '€' + finalPrice.toFixed(2);
 
