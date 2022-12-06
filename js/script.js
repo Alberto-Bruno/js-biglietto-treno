@@ -10,9 +10,7 @@ console.log('JS OK')
 
 // Prendo l'elemento dalla pagina
 const targetElement = document.getElementById('target');
-const discountMessageElement = document.getElementById('discount-message')
 const priceMessage = 'Totale biglietto';
-let discountMessage = 'Sconto';
 
 //Main Logics
 
@@ -24,19 +22,24 @@ const kms = prompt('Km percorsi' , 100);
 // Calcolo del prezzo
 let price = kms * 0.21;
 
+// ! Flag
+let discount = null;
+
 // Verificare i vari sconti
 if(age >= 65){
     price = price * 0.6;
-    discountMessage += "40%"
-    discountMessageElement.innerText = discountMessage;
-
+    discount = "40%";
+    
 } else if(age < 18) {
     price = price * 0.8;
-    discountMessage += "20%"
-    discountMessage.innerText = discountMessage;
-
+    discount = "20%";
 }
 
-discountMessageElement.innerText = discountMessage;
+if (discount) {
+    let discountMessage = 'Sconto ' + discount;
+    const discountMessageElement = document.getElementById('discount-message')
+    discountMessageElement.innerText = discountMessage;
+}
+
 targetElement.innerText = priceMessage + '€' + price.toFixed(2);
 
